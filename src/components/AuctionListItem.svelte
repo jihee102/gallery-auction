@@ -1,5 +1,9 @@
 <script>
-
+    export let name;
+    export let painter;
+    export let auctionEndDate;
+    export let image;
+    export let id;
 
 </script>
 
@@ -8,6 +12,15 @@
 
     * {
         box-sizing: border-box;
+    }
+
+    ul{
+        list-style: none;
+        padding: 0;
+    }
+
+    ul li{
+        font-size: 18px;
     }
     .auction__item{
         display: flex;
@@ -46,8 +59,11 @@
 
 
     .auctionItem__img{
-        max-width: 100%;
+        min-width: 300px;
+        max-width: 300px;
         height: 300px;
+        margin: 0 auto;
+        border-radius: 50%;
     }
 
     .auctionBtn{
@@ -75,19 +91,19 @@
 </style>
 
 <div class="auction__item">
-    <img class="auctionItem__img" src="http://source.unsplash.com/random/" alt="">
+    <img class="auctionItem__img" src={image} alt="">
     <div class="auctionItem__detail__container">
-        <span>auctionItem__name</span>
+        <span>{name}</span>
         <div class="auctionItem__detail">
             <ul>
-                <li>Last bid price</li>
+                <li>painter</li>
                 <li>Due Time</li>
             </ul>
             <ul>
-                <li class="auctionItem__lastbid">$10</li>
-                <li class="auctionItem__duedate">2d 3h</li>
+                <li class="auctionItem__painter">{painter}</li>
+                <li class="auctionItem__duedate">{auctionEndDate}</li>
             </ul>
         </div>
-        <a class="auctionBtn" href="#">Bid</a>
+        <a class="auctionBtn"  href="auction#/{id}">Auction Detail</a>
     </div>
 </div>

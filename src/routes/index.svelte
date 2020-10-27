@@ -1,5 +1,30 @@
 <script>
 	import AuctionListItem from "../components/AuctionListItem.svelte";
+	import {onMount} from "svelte";
+	import SearchBar from "../components/SearchBar.svelte";
+
+	let error;
+	let paintings = [];
+
+	onMount(() => {
+		getPaintings();
+	})
+
+	const getPaintings = async () => {
+		const response = await fetch('http://localhost:3000/paintings', {
+			method: "GET",
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		if (response.status === 200) {
+			const json = await response.json();
+			paintings = [...json];
+		}
+		error = await response.json();
+
+	}
+
 </script>
 <style>
 	h1, p {
@@ -30,10 +55,10 @@
 </svelte:head>
 
 <h1>Auction List</h1>
+<SearchBar />
 <div class="auctionList">
-	<AuctionListItem />
-	<AuctionListItem />
-	<AuctionListItem />
-	<AuctionListItem />
-	<AuctionListItem />
+	{#each paintings as paint}
+		<AuctionListItem name={paint.name} image={paint.image} auctionEndDate={paint.auctionEenDate}
+						 painter={paint.painter} id={paint.id}/>
+	{/each}
 </div>
