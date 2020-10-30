@@ -97,5 +97,5 @@ input[type="submit"]:hover {
     <label for="password">Password</label>
     <input id="password" type="password" placeholder="Password" bind:value = {password}/>
     <input type="submit" value="Login" on:click = {login}/>
-    <a href="register.html">Register</a>
+    <a href="register">Register</a>
 </form>
