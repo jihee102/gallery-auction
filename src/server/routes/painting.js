@@ -31,22 +31,25 @@ router.get("/search", (req, res)=>{
 
     if(searchedKeys.length > 1){
         let temPaintings= [...paintings];
-
         for (let i = 0; i <searchedKeys.length ; i++) {
             temPaintings = temPaintings.filter(paint =>{
-                return (paint[searchedKeys[i]] === object[searchedKeys[i]])
+                return (paint[searchedKeys[i]].toLowerCase() === object[searchedKeys[i]].toLowerCase())
             })
         }
         resultPaintings = [...temPaintings];
 
     }else if( searchedKeys.length ===1 ){
         paintings.map(paint =>{
-            if(paint[searchedKeys[0]] === object[searchedKeys[0]]){
+            if(paint[searchedKeys[0]].toLowerCase() === object[searchedKeys[0]].toLowerCase()){
                 resultPaintings.push(paint);
             }
         })
     }
-    console.log(resultPaintings)
+    if(resultPaintings.length > 0){
+        res.send(resultPaintings);
+    }else{
+        res.status(StatusCodes.NOT_FOUND).send({message: 'No paint with the searched condition'})
+    }
 
 })
 

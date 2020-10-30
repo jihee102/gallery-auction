@@ -1,10 +1,18 @@
 <script>
+    import { createEventDispatcher} from 'svelte';
 
+    const dispatch = createEventDispatcher();
+    let searchedPaint;
     let searchKeyword;
-    const searchPaint = (e)=>{
+    let error;
+
+    const searchPaint = async (e)=>{
         e.preventDefault();
-        console.log(searchKeyword)
+        dispatch("search", {search: searchKeyword});
+        searchKeyword = '';
+
     }
+
 
 </script>
 
