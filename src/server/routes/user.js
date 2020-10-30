@@ -52,17 +52,18 @@ router.get("/log-in", (req, res) => {
 });
 router.post("/log-in", (req, res) => {
     const {password, username} = req.body;
-    const user = users.find(element => element.username === username);
-    const token = user && bcrypt.compareSync(password, user.password) ? jwt.sign({
-        username: user.username,
-        id: user.id,
-        admin: user.admin
-    }, user.email) : false;
-    if (token) {
-        res.send({"token": token});
-    } else {
-        res.status(StatusCodes.NOT_FOUND).send("the user doesnt exist")
-    }
+        const user = users.find(element => element.username === username);
+        const token = user && bcrypt.compareSync(password, user.password) ? jwt.sign({
+            username: user.username,
+            id: user.id,
+            admin: user.admin
+        }, user.email) : false;
+        if (token) {
+            res.send({"token": token});
+        } else {
+            res.status(StatusCodes.BAD_REQUEST).send({"message": "the user doesnt exist"})
+        }
+
 });
 
 

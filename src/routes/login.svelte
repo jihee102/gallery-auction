@@ -1,5 +1,6 @@
 <script>
     import {tokenInfo} from "../tokenStorage.js";
+    import { goto } from "@sapper/app";
 
     let username;
     let password;
@@ -7,7 +8,11 @@
 
     const login = (e)=>{
         e.preventDefault();
-        tyrLogin();
+        if(username !== undefined && password!==undefined){
+            tyrLogin();
+        }else{
+            error= "Please fill both name and password fields!"
+        }
 
     }
 
@@ -24,11 +29,11 @@
             const {token}= await response.json();
             console.log(token)
             $tokenInfo = token;
-
-            console.log(token)
+            goto("/");
 
         }else{
-            error = await response.json();
+            const {message} = await response.json();
+            error = message;
         }
 
 
@@ -88,14 +93,28 @@ input[type="submit"]:hover {
         margin-top: 40px;
         text-decoration: none;
     }
+
+    .error{
+        display: block;
+        text-align: center;
+        color: red;
+    }
+
+    .bad{
+        border: red 1px solid;
+    }
 </style>
 
 <form class="login_form">
     <h1 class="auction_title">Login</h1>
     <label for="name">Name</label>
-    <input id="name" type="text" placeholder="Username" bind:value = {username}/>
+    <input id="name" type="text" placeholder="Username" bind:value = {username} class={username !== undefined && username.length < 3? "bad": ""}/>
     <label for="password">Password</label>
-    <input id="password" type="password" placeholder="Password" bind:value = {password}/>
+    <input id="password" type="password" placeholder="Password" bind:value = {password} class={password !== undefined && password.length < 3? "bad": ""}/>
     <input type="submit" value="Login" on:click = {login}/>
     <a href="register">Register</a>
 </form>
+
+{#if error}
+<span class="error">{error}</span>
+{/if}}
