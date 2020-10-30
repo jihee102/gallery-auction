@@ -1,3 +1,3 @@
 import {writable} from "svelte/store";
 
-export const tokenInfo = writable('none');
+export const tokenInfo = writable(undefined);

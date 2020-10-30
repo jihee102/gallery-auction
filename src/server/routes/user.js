@@ -69,10 +69,10 @@ router.post("/log-in", (req, res) => {
 
 router.get("/mybids", (req, res) => {
     const bearerHeader = req.headers["authorization"];
+    console.log(req.headers["authorization"]);
     if (bearerHeader) {
-        const token = bearerHeader.split(' ')[1];
         // check if the token is valid
-        const tokenPayload = isTokenValid(token);
+        const tokenPayload = isTokenValid(bearerHeader);
         console.log(tokenPayload);
         if (tokenPayload) {
             const user = users.find(element => element.username === tokenPayload.username);
@@ -98,9 +98,8 @@ router.delete("/mybids/:id", (req, res) => {
     const bidId = req.params.id;
     const bearerHeader = req.headers["authorization"];
     if (bearerHeader) {
-        const token = bearerHeader.split(' ')[1];
         // check if the token is valid
-        const tokenPayload = isTokenValid(token);
+        const tokenPayload = isTokenValid(bearerHeader);
         if (tokenPayload) {
             bids = bids.filter(bid => bid.id !== bidId);
             res.send(bids);
