@@ -104,8 +104,7 @@
 <div class="bidBidPage">
     <div class="details">
         <h1>My Details</h1>
-        <img src="https://lh3.googleusercontent.com/proxy/qTfqYEv0JUdqjWrCBDW4OvZKHSnzsHWImobAJEgcZp2ityaQrdrwMqYh65Psd65PxjEELQ3yQfeY8s0sqslfVpl1DVomB77rFRnhj1uwKBF9dO6UGKQth0aB"
-        alt = "profile"/>
+        <i class="fas fa-user fa-7x"></i>
         <span>{user}</span>
     </div>
     <div class="bidList">
