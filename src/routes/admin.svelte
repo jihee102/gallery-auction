@@ -3,6 +3,7 @@
     import {onMount} from "svelte";
     import {goto} from "@sapper/app";
     import AuctionTable from "../components/AuctionTable.svelte";
+
     let user;
     let paintings = [];
     let error;

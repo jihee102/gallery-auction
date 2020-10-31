@@ -3,12 +3,12 @@ module.exports=[
         "id" : "1",
         "name" : "Mona Lisa",
         "painter":"Leonardo Da Vinci",
-        "value" : "100,000,000$",
+        "value" : "100000000",
         "creationDate":"10/03/1519",
         "size" : "4",
         "image":"/images/MonaLisa.jpg",
         "auctionStartDate" : "20/10/2020",
-        "auctionEenDate" : new Date('10/30/2020 10:1 AM'),
+        "auctionEenDate" : "22/10/2020",
         "description" : "Painted between 1503 and 1517, Da Vinci’s alluring portrait has been dogged by two questions since the day it was made: Who’s the subject and why is she smiling?" +
             " A number of theories for the former have been proffered over the years: That she’s the wife of the Florentine merchant Francesco di Bartolomeo del Giocondo (ergo, the work’s alternative title, La Gioconda);" +
             " that she's Leonardo’s mother, Caterina, conjured from Leonardo's boyhood memories of her; and finally, that it's a self-portrait in drag. As for that famous smile, its enigmatic quality has driven people crazy for centuries." +
@@ -19,12 +19,12 @@ module.exports=[
         "id" : "2",
         "name" : "Girl with a Pearl Earring",
         "painter":"Johannes Vermeer",
-        "value" : "20,000,000$",
+        "value" : "20000000",
         "creationDate":"12/11/1665",
         "size" : "5",
         "image":"/images/GirlwithPearlEarring.jpg",
         "auctionStartDate" : "20/10/2020",
-        "auctionEenDate" : new Date('10/28/2020 7:1 AM'),
+        "auctionEenDate" : "22/10/2020",
         "description" : "Johannes Vermeer’s 1665 study of a young woman is startlingly real and startlingly modern, almost as if it were a photograph. " +
             "This gets into the debate over whether or not Vermeer employed a pre-photographic device called a camera obscura to create the image. " +
             "Leaving that aside, the sitter is unknown, though it’s been speculated that she might have been Vermeer's maid. " +
@@ -35,12 +35,12 @@ module.exports=[
         "id" : "3",
         "name" : "The Birth of Venus",
         "painter":"Sandro Botticelli",
-        "value" : "10,000,000$",
+        "value" : "10000000",
         "creationDate":"18/02/1486",
         "size" : "10",
         "image":"/images/TheBirthOfVenus.jpg",
         "auctionStartDate" : "20/10/2020",
-        "auctionEenDate" : new Date('11/02/2020 10:1 AM'),
+        "auctionEenDate" : "22/10/2020",
         "description" : "Botticelli’s The Birth of Venus was the first full-length, non-religious nude since antiquity, and was made for Lorenzo de Medici. " +
             "It’s claimed that the figure of the Goddess of Love is modeled after one Simonetta Cattaneo Vespucci, whose favors were allegedly shared by Lorenzo and his younger brother, Giuliano. " +
             "Venus is seen being blown ashore on a giant clamshell by the wind gods Zephyrus and Aura as the personification of spring awaits on land with a cloak. " +
@@ -53,7 +53,7 @@ module.exports=[
         "id" : "4",
         "name" : "The Starry Night",
         "painter":"Vincent Van Gogh",
-        "value" : "60,000,000$",
+        "value" : "60000000",
         "creationDate":"13/08/1889",
         "size" : "5",
         "image":"/images/TheStarryNight.jpg",
@@ -65,7 +65,7 @@ module.exports=[
         "id" : "5",
         "name" : "TheKiss",
         "painter":"Gustav Klimt",
-        "value" : "12,000,000$",
+        "value" : "12000000",
         "creationDate":"12/03/1908",
         "size" : "6",
         "image":"/images/TheKiss.jpg",
@@ -79,7 +79,7 @@ module.exports=[
         "id" : "6",
         "name" : "The Garden If Earthly Delights",
         "painter":"Hieronymus Bosch",
-        "value" : "19,000,000$",
+        "value" : "19000000",
         "creationDate":"12/03/1515",
         "size" : "3",
         "image":"/images/TheGardenOFEarthlyDelight.jpg",
@@ -95,7 +95,7 @@ module.exports=[
         "id" : "7",
         "name" : "Les Demoiselles d’Avignon",
         "painter":"PabloPicasso",
-        "value" : "89,000,000$",
+        "value" : "89000000",
         "creationDate":"12/03/1907",
         "size" : "6",
         "image":"/images/LesDemoisellesAvignon.jpg",

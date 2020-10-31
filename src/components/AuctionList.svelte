@@ -10,7 +10,7 @@
         grid-auto-rows: auto;
         width: 100%;
         grid-gap: 30px;
-        margin: 0 auto;
+        margin: 20px auto 100px;
         justify-items: center;
         align-items: center;
         height: fit-content;
