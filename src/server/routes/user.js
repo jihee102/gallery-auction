@@ -35,7 +35,7 @@ router.post("/sign-up", (req, res) => {
         console.log(isExisted)
     })
     if (isExisted) {
-        res.send("The email has been used. please try with another email.")
+        res.send("The email already exist in the system. please try with another email.")
     } else {
         const newUser = {
             id: `${users.length + 1}`,

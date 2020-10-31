@@ -117,4 +117,4 @@ input[type="submit"]:hover {
 
 {#if error}
 <span class="error">{error}</span>
-{/if}}
+{/if}
