@@ -134,10 +134,8 @@ router.post("/:id/bid", (req, res)=>{
     const {amount} = req.body;
     let bearerHeader = req.headers["authorization"];
     if(bearerHeader){
-        const token = bearerHeader.split(' ')[1];
-
         // check if the token is valid
-        const tokenPayload = isTokenValid(token);
+        const tokenPayload = isTokenValid(bearerHeader);
         if(tokenPayload){
             const user = users.find(element => element.id === tokenPayload.id);
             const paint = paintings.find(paint => paint.id == id);

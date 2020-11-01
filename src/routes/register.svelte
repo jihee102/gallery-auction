@@ -1,50 +1,71 @@
 <script>
     import {tokenInfo} from "../tokenStorage";
     import { goto } from "@sapper/app";
-    import { emailValidator, requiredValidator } from '../validation/validators';
-    import { createFieldValidator } from '../validation/validation';
-
-    const [ validity, validate ] = createFieldValidator(requiredValidator(), emailValidator())
 
     let username;
     let password;
     let repeatpassword;
     let email;
     let error;
+    let emailValidation;
+    let passwordValidation;
 
 
-    const userRegister = (e) => {
-        if (repeatpassword === password){
+
+    const userRegister =  async (e) => {
+        if (repeatpassword === password && emailValidation && passwordValidation){
             e.preventDefault();
-            tryRegister();
+            const response = await fetch('http://localhost:3000/user/sign-up' , {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
 
+                },body: JSON.stringify({password:password,username:username,email:email}),
+
+            });
+
+            if (response.status >=200 && response.status <300){
+                goto ("/");
+            }else {
+                const message = await response.json();
+                error = message.message;
+
+            }
         }else {
             error = " password does not match with repeat password "
         }
     }
 
     const tryRegister = async () =>{
-        const response = await fetch('https://localhost:3000/user/sign-up' , {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-
-            },body: JSON.stringify({password: password,username: username,email:email
-                }),
-
-        });
-        // if (response.status >=200 && response.status <300){
-            const {token} = await response.json();
-            console.log(token)
-            $tokenInfo = token;
-            goto ("/");
-        // }else {
-        //     const {message} = await response.json();
-        //     error = message;
-        //
-        // }
 
 
+
+    }
+
+    // email regex
+    const checkEmailValidation = ()=>{
+        var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (email.match(mailformat)) {
+            emailValidation = true;
+        } else {
+            emailValidation = false;
+        }
+
+    }
+
+
+    // Password should be more than 8 letters & less than 15 letters
+    // Password should include at least one uppercase letter,one lowercase letter, one number and one special character.
+    const checkPasswordValidation =()=>{
+        var decimal=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        if(password.match(decimal))
+        {
+            passwordValidation = true;
+        }
+        else
+        {
+            passwordValidation = false;
+        }
     }
 
 </script>
@@ -82,9 +103,6 @@
             outline: none;
         }
 
-        label{
-            color: #555555;
-        }
 
         input[type="submit"]{
             margin-top: 30px;
@@ -103,20 +121,11 @@
             border: solid 3px #f3e7e5;
         }
 
-        a{
-            text-align: center;
-            margin-top: 40px;
-            text-decoration: none;
-        }
 
         .error{
             display: block;
             text-align: center;
             color: red;
-        }
-
-        .bad{
-            border: red 1px solid;
         }
 
     .field-danger {
@@ -126,35 +135,23 @@
     .field-success {
         border-color: green;
         }
-        .validation-hint {
-            color: red;
-            padding: 6px 0;
-        }
+
     </style>
 
 
 <form class="register_form">
     <h1 class="auction_title">Register</h1>
-    <input id="userName" type="text" placeholder="Username" name="username"
+    <input  type="text" placeholder="Username" class={username !==undefined && username.length > 3 ? "field-success":"field-danger"}
            bind:value = {username}
            />
-    <input id="email" type="text" placeholder="Email" name="email"
-           bind:value={email}
-           class:field-danger={!$validity.valid}
-           class:field-success={$validity.valid}
-           use:validate={email}/>
+    <input id="email" type="text" placeholder="Email" name="email" on:input={checkEmailValidation}
+           bind:value={email}  class={emailValidation ? "field-success":"field-danger"} />
 
-    <input id="pass1" type="password" placeholder="Password" name="password" bind:value={password}/>
-    <input id="pass2" type="password" placeholder="Password repeat" name="password_repeat" bind:value={repeatpassword}/>
-    <input type="submit" value="Register"  disabled="{!$validity.valid}"
-           on:click = {userRegister}/>
+    <input  type="password" placeholder="Password" bind:value={password} on:input={checkPasswordValidation}  class={passwordValidation ? "field-success":"field-danger"}/>
+    <input  type="password" placeholder="Password repeat" name="password_repeat" bind:value={repeatpassword}  class={password === repeatpassword ? "field-success":"field-danger"}/>
+    <input type="submit"  on:click = {userRegister}/>
 
         </form>
-<!--{#if $validity.dirty && !$validity.valid}-->
-<!--        <span class="validation-hint" >-->
-<!--            INVALID - {$validity.message} {$validity.dirty}-->
-<!--        </span>-->
-<!--    {/if}-->
 
 {#if error}
     <span class="error">{error}</span>

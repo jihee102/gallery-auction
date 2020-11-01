@@ -1,5 +1,12 @@
 <script>
+	import {tokenInfo} from "../tokenStorage.js";
+	import {goto} from "@sapper/app";
 	export let segment;
+
+	const logout = ()=>{
+		$tokenInfo = undefined;
+		goto("/");
+	}
 </script>
 
 <style>
@@ -28,6 +35,7 @@
 	li {
 		display: block;
 		float: left;
+		cursor: pointer;
 	}
 
 	li:last-of-type{
@@ -61,7 +69,11 @@
 		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
 		<li><a aria-current="{segment === 'mybid' ? 'page' : undefined}" href="mybid">my bids</a></li>
 		<li><a aria-current="{segment === 'admin' ? 'page' : undefined}" href="admin">administration</a></li>
+		{#if $tokenInfo === undefined}
 		<li><a aria-current="{segment === 'login' ? 'page' : undefined}" href="login">login</a></li>
+					{:else}
+			<li on:click={logout}>logout</li>
+			{/if}
 
 		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
 		     the blog data when we hover over the link or tap it on a touchscreen -->

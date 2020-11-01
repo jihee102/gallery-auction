@@ -1,13 +1,5 @@
 <script>
-    export let name;
-    export let painter;
-    export let auctionEndDate;
-    export let image;
-    export let value;
-    export let creationDate;
-    export let auctionStartDate;
-    export let description;
-
+    export let painting;
 
 </script>
 
@@ -18,48 +10,47 @@
         box-sizing: border-box;
     }
 
-    ul{
-        list-style: none;
-        padding: 0;
+    h2{
+        margin-bottom: 50px;
+        font-weight: bold;
+        color: #010a5e;
+        font-size: 25px;
     }
 
-    ul li{
-        font-size: 18px;
+    h3{
+        font-weight: bold;
+        color: #555555;
+        font-size: 15px;
     }
     .auction__item{
         display: flex;
-        flex-direction: column;
         background-color: #f3e7e5;
-
-        justify-content: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
         border-radius: 10px;
         overflow: hidden;
+        padding-top: 50px;
+        width: 75%;
+        margin: 0 auto;
+    }
+    img{
 
+        flex-basis: 50%;
     }
 
     .auctionItem__detail__container{
-        padding: 10px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-basis: 50%;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .auctionItem__detail{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        font-size: 20px;
-        margin-top: 20px;
+        display: flex;
+        min-height: 300px;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .auctionItem__detail ul:first-of-type{
-        color: gray;
-    }
-    .auctionItem__detail ul:last-of-type{
-        font-weight: 700;
-
-    }
 
 
     .auctionItem__img{
@@ -70,66 +61,36 @@
         border-radius: 50%;
     }
 
-    .auctionBtn{
-        border: 1px solid #010a5e;
-        border-radius: 10px;
-        text-decoration: none;
-        color: #010a5e;
-        width: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 150px;
-        height: 40px;
-        margin: 20px 0;
-        background-color: rgba(255,255,255, 0.2);
-        transition: all 0.2s linear;;
+    p{
+        margin: 50px 0 50px;
     }
 
-    .auctionBtn:hover {
-        background-color: #010a5e;
-        color: #fff;
-        border: solid 3px #fff;
-
-    }
 </style>
-"value" : "10,000,000$",
-"creationDate":"18/02/1486",
-"size" : "10",
-"image":"/images/TheBirthOfVenus.jpg",
-"auctionStartDate" : "20/10/2020",
-"auctionEenDate" : new Date('11/02/2020 10:1 AM'),
-"description"
+
 
 <div class="auction__item">
-    <img class="auctionItem__img" src={image} alt="">
+    <img class="auctionItem__img" src={painting.image} alt="img">
     <div class="auctionItem__detail__container">
-        <span>{name}</span>
         <div class="auctionItem__detail">
-            <ul>
-                auctionEndDate;
-                export let image;
-                export let value;
-                export let creationDate;
-                export let auctionStartDate;
-                export let description;
-                <li>name</li>
-                <li>painter</li>
-                <li>value</li>
-                <li>creation date</li>
-                <li>auction start time</li>
-                <li>auction end time</li>
-                <li>description</li>
-            </ul>
-            <ul>
-                <li class="auctionItem__name">{name}</li>
-                <li class="auctionItem__painter">{painter}</li>
-                <li class="auctionItem__value">{value}</li>
-                <li class="auctionItem__creationDate">{creationDate}</li>
-                <li class="auctionItem__startdate">{auctionStartDate}</li>
-                <li class="auctionItem__duedate">{auctionEndDate}</li>
-                <li class="auctionItem__description">{description}</li>
-            </ul>
+            <div>
+                <h2>{painting.name}</h2>
+            </div>
+            <div>
+                <h3>Value of this paint</h3>
+                <span>${painting.value}</span>
+            </div>
+            <div>
+                <h3>Auction end date</h3>
+                <span>{painting.auctionEenDate}</span>
+            </div>
+            <div>
+                <h3>Size</h3>
+                <span>{painting.size}m2</span>
+            </div>
+
         </div>
+        <p>
+            {painting.description}
+        </p>
     </div>
 </div>

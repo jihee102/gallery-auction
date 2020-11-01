@@ -44,7 +44,7 @@ router.post("/sign-up", (req, res) => {
             password: bcrypt.hashSync(password, saltRounds)
         }
         users.push(newUser);
-        res.status(StatusCodes.CREATED).send(req.body);
+        res.status(200).send(req.body);
     }
 })
 router.get("/log-in", (req, res) => {
@@ -85,13 +85,15 @@ router.get("/mybids", (req, res) => {
                 });
                 res.send(userBidList);
             } else {
-                res.status(StatusCodes.NOT_FOUND).send("the user doesnt exist")
+                res.status(404).send("the user doesnt exist")
             }
 
         }
 
+    }else{
+        res.status(404).send({"message": "Authentication required"})
     }
-    res.status(StatusCodes.BAD_REQUEST).send({"message": "Authentication required"})
+
 })
 
 router.delete("/mybids/:id", (req, res) => {
@@ -106,7 +108,7 @@ router.delete("/mybids/:id", (req, res) => {
         }
 
     }
-    res.status(StatusCodes.BAD_REQUEST).send({"message": "Authentication required"})
+    res.status(404).send({"message": "Authentication required"})
 })
 
 router.get("/admin/bids", (req, res) => {
@@ -120,7 +122,7 @@ router.get("/admin/bids", (req, res) => {
         }
 
     }
-    res.status(StatusCodes.BAD_REQUEST).send({"message": "Authentication required"})
+    res.status(404).send({"message": "Authentication required"})
 })
 
 function isBest(bid) {

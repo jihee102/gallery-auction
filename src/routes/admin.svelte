@@ -162,7 +162,7 @@
         <i class="fas fa-user fa-7x"></i>
     </div>
     <div class="bidList">
-        <h1>My Bids</h1>
+        <h1>Current Auctions</h1>
         <AuctionTable on:delete={deletePaint} on:update={updateBid} paintings={paintings}/>
         <AuctionForm painting={updatingPaint} on:update={updateAuction} on:add={addAuction}/>
     </div>

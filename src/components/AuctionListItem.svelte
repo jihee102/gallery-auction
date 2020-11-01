@@ -91,7 +91,7 @@
 </style>
 
 <div class="auction__item">
-    <img class="auctionItem__img" src={image} alt="">
+    <img class="auctionItem__img" src={image} alt="img">
     <div class="auctionItem__detail__container">
         <span>{name}</span>
         <div class="auctionItem__detail">

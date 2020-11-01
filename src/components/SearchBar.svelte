@@ -1,6 +1,5 @@
 <script>
     import {createEventDispatcher} from 'svelte';
-    import FilterForm from "./FilterForm.svelte";
 
     const dispatch = createEventDispatcher();
     let searchedPaint;
