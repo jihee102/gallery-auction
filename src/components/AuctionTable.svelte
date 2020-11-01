@@ -9,6 +9,10 @@
 
     }
 
+    const updateTheBid = async (paintingID)=>{
+        dispatch("update", {paintingID: paintingID})
+    }
+
 </script>
 
 <style>
@@ -57,7 +61,7 @@
             <tr>
                 <td>{painting.name}</td>
                 <td>{painting.auctionEenDate}</td>
-                <td>{painting.auctionEenDate}</td>
+                <td class="cursor" on:click={updateTheBid(painting.id)}><i class="fas fa-edit"></i></td>
                 <td class="cursor" on:click={deleteTheBid(painting.id)}> <i class="fa fa-trash"></i></td>
 
             </tr>

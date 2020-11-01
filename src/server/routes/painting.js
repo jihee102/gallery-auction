@@ -59,7 +59,7 @@ router.post("/", (req, res) => {
 
     paintings.push(newPaintWithID);
 
-    res.status(StatusCodes.CREATED).send(newPaintWithID);
+    res.status(201).send(newPaintWithID);
 });
 
 router.get("/:id", (req, res) => {

@@ -24,8 +24,10 @@
 		if (response.status === 200) {
 			const json = await response.json();
 			paintings = [...json];
+		}else{
+			error = await response.json();
 		}
-		error = await response.json();
+
 
 	}
 
