@@ -1,11 +1,10 @@
 <script>
-    import {tokenInfo} from "../tokenStorage.js";
+    import {tokenInfo, bidStore} from "../auctionStorage.js";
     import {onMount} from "svelte";
     import {goto} from "@sapper/app";
     import BidTable from "../components/BidTable.svelte";
 
     let user;
-    let bidList = [];
     let error;
 
     onMount(() => {
@@ -28,8 +27,8 @@
         });
         if (response.status >= 200 && response.status < 300) {
             const json = await response.json();
-            bidList = [...json];
-            const {username} = bidList[0];
+            $bidStore = [...json];
+            const {username} = $bidStore[0];
             user = username;
         } else {
             const {message} = await response.json();
@@ -49,7 +48,7 @@
 
         });
         if (response.status >= 200 && response.status < 300) {
-            await getUserBids();
+            $bidStore = $bidStore.filter(bid => bid.id !== bidID);
         } else {
             const {message} = await response.json();
             error = message;
@@ -109,7 +108,7 @@
     </div>
     <div class="bidList">
         <h1>My Bids</h1>
-        <BidTable on:delete={deleteBid} bidList={bidList}/>
+        <BidTable on:delete={deleteBid} bidList={$bidStore}/>
     </div>
 
 </div>

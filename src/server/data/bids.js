@@ -3,14 +3,14 @@ module.exports = [
         "id": "1",
         "username": "jihee",
         "paintId": "1",
-        "bidTime" : "13:00",
+        "bidTime" : "10/1 13:00",
         "bidPrice": "50"
     },
     {
         "id": "2",
         "username": "ali",
         "paintId": "1",
-        "bidTime" : "13:20",
+        "bidTime" : "10/1 13:20",
         "bidPrice": "60"
 
     },
@@ -18,7 +18,7 @@ module.exports = [
         "id": "3",
         "username": "jihee",
         "paintId": "1",
-        "bidTime" : "13:40",
+        "bidTime" : "10/1 13:40",
         "bidPrice": "70"
     }
 ]

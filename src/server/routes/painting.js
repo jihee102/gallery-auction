@@ -33,14 +33,14 @@ router.get("/search", (req, res)=>{
         let temPaintings= [...paintings];
         for (let i = 0; i <searchedKeys.length ; i++) {
             temPaintings = temPaintings.filter(paint =>{
-                return (paint[searchedKeys[i]].toLowerCase() === object[searchedKeys[i]].toLowerCase())
+                return (paint[searchedKeys[i]].toLowerCase().includes(object[searchedKeys[i]].toLowerCase()))
             })
         }
         resultPaintings = [...temPaintings];
 
     }else if( searchedKeys.length ===1 ){
         paintings.map(paint =>{
-            if(paint[searchedKeys[0]].toLowerCase() === object[searchedKeys[0]].toLowerCase()){
+            if(paint[searchedKeys[0]].toLowerCase().includes(object[searchedKeys[0]].toLowerCase())){
                 resultPaintings.push(paint);
             }
         })
@@ -141,9 +141,11 @@ router.post("/:id/bid", (req, res)=>{
             const paint = paintings.find(paint => paint.id == id);
 
             if(user){
-                const newBid = {id : `${bids.length+1}`, username: user.username, paintId: paint.id, bidTime: Date.now(), bidPrice:amount };
+                const day = new Date();
+                const time = day.getMonth()+"/"+day.getDate()+" "+day.getHours()+":"+day.getMinutes();
+                const newBid = {id : `${bids.length+1}`, username: user.username, paintId: paint.id, bidTime: time, bidPrice:amount };
                 bids.push(newBid);
-                res.send({message: "New bid is added"})
+                res.send(newBid)
             }
         }
 

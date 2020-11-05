@@ -95,7 +95,7 @@
         </tr>
         </thead>
         <tbody>
-        {#if   bidList.length === 0}
+        {#if   bidList.length ===0}
             <tr class="center"><td colspan='3'>No bid found</td></tr>
         {:else}
             {#each bidList as bid}

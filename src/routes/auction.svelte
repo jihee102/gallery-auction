@@ -1,18 +1,17 @@
 <script>
-    import {tokenInfo} from "../tokenStorage";
+    import {tokenInfo, paintStore, bidStore} from "../auctionStorage";
     import {onMount} from "svelte";
     import {goto} from "@sapper/app";
     import AuctionDetail from "../components/AuctionDetail.svelte";
     import BidList from "../components/BidList.svelte";
 
     let user;
-    let bidList = [];
+    $: bidList =[];
     let error;
     let painting;
     let paintId;
     onMount(() => {
         readUrl();
-
     });
     const readUrl = () => {
         const url = document.location.href;
@@ -21,22 +20,11 @@
         getPainting();
         getPaintingBids();
     }
-    const getPainting = async () => {
-        const response = await fetch(`http://localhost:3000/paintings/${paintId}`, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.status >= 200 && response.status < 300) {
-            const json = await response.json();
-            painting = json;
-            console.log(painting)
-        } else {
-            error = await response.json();
-        }
 
+    const getPainting = () => {
+        painting = $paintStore.find(paint => paint.id === paintId);
     }
+
     const getPaintingBids = async () => {
         const response = await fetch(`http://localhost:3000/paintings/${paintId}/bid`, {
             method: "GET",
@@ -47,7 +35,6 @@
         if (response.status >= 200 && response.status < 300) {
             const json = await response.json();
             bidList = [...json];
-            console.log(bidList)
 
         } else {
             const {message} = await response.json();
@@ -68,8 +55,10 @@
             });
 
             if (response.status >= 200 && response.status < 300) {
-                await getPaintingBids();
-
+                const newBid = await response.json();
+                $bidStore = [newBid,...$bidStore];
+                console.log($bidStore)
+                bidList =[...bidList, newBid].sort((a,b)=> b.bidPrice - a.bidPrice);
             } else {
                 const {message} = await response.json();
                 error = message;
@@ -103,8 +92,13 @@
 
 <h1>Auction Detail</h1>
 {#if painting !==undefined}
-    <AuctionDetail painting={painting} bidList={bidList}/>
+    <AuctionDetail painting={painting}/>
+
     <BidList bidList={bidList} on:bid={doBid}/>
 {/if}
+<!--{:catch error}-->
+<!--        <p style="color: red">{error.message}</p>-->
 
+
+<!--{/await}-->
 

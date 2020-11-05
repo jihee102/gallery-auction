@@ -1,5 +1,5 @@
 <script>
-    import {tokenInfo} from "../tokenStorage.js";
+    import {tokenInfo} from "../auctionStorage.js";
     import { goto } from "@sapper/app";
 
     let username;

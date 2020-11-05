@@ -1,11 +1,11 @@
 <script>
 	import {onMount} from "svelte";
+	import {paintStore} from "../auctionStorage.js";
 	import SearchBar from "../components/SearchBar.svelte";
 	import AuctionList from "../components/AuctionList.svelte";
 	import FilterForm from "../components/FilterForm.svelte";
 
 	let error;
-	let paintings = [];
 	let searchPainting = [];
 	let filterSearch = false;
 	let filterPainting = [];
@@ -23,12 +23,10 @@
 		});
 		if (response.status === 200) {
 			const json = await response.json();
-			paintings = [...json];
+			$paintStore = [...json];
 		}else{
 			error = await response.json();
 		}
-
-
 	}
 
 	const handleSearching = async (event) => {
@@ -63,7 +61,7 @@
 		let sizeValue = e.detail.size
 		let nameValue = e.detail.name
 		console.log(priceValue,sizeValue,nameValue)
-		filterPainting = [...paintings];
+		filterPainting = [...$paintStore];
 
 		// If price is defined, filter the painting list according to the condition
 		if(priceValue !=='none'){
@@ -180,5 +178,5 @@
 	<AuctionList paintings={filterPainting} />
 	<button on:click = {backToMain}>Back</button>
 {:else}
-<AuctionList paintings={paintings} />
+<AuctionList paintings={$paintStore} />
 {/if}
