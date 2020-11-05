@@ -7,14 +7,22 @@
     let error;
 
     const doBid = ()=>{
-        const isBidAmountGood = Number(bidAmount) > Number(bidList[0].bidPrice);
+        let isBidAmountGood;
+        if(bidList.length> 0 ){
+            isBidAmountGood = Number(bidAmount) > Number(bidList[0].bidPrice);
+        }else{
+            isBidAmountGood = true;
+        }
+
 
         if(isBidAmountGood){
             error = undefined;
             dispatch("bid", {amount : bidAmount})
+            bidAmount=undefined;
         }else{
             error = "Bid amount should be bigger than current best bid amount! Current best bid: $"+ bidList[0].bidPrice;
         }
+
     }
 
 </script>

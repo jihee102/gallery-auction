@@ -6,7 +6,7 @@
     import BidList from "../components/BidList.svelte";
 
     let user;
-    $: bidList =[];
+    let bidList =[];
     let error;
     let painting;
     let paintId;
@@ -96,9 +96,3 @@
 
     <BidList bidList={bidList} on:bid={doBid}/>
 {/if}
-<!--{:catch error}-->
-<!--        <p style="color: red">{error.message}</p>-->
-
-
-<!--{/await}-->
-
