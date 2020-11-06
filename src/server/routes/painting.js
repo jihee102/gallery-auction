@@ -1,4 +1,6 @@
 const express = require("express");
+const {findPaint, isAuth} = require("./util.js");
+
 const router = express.Router();
 const {
     ReasonPhrases,
@@ -9,7 +11,6 @@ const {
 
 let paintings = require("../data/paintings");
 
-const jwt = require("jsonwebtoken");
 const isTokenValid = require("../utils/token");
 let users = require("../data/userdata");
 let bids = require("../data/bids");
@@ -19,36 +20,16 @@ router.get('/', (req, res) => {
     res.send(paintings);
 });
 
-router.get("/search", (req, res)=>{
+router.get("/paint", (req, res)=>{
     // const {size, name, creationDate, value}= req.query;
     const object = req.query;
-    let resultPaintings = [];
-    let searchedKeys =[];
+    const resultPaints =findPaint(object);
 
-    Object.keys(object).forEach(key =>{
-        searchedKeys.push(key);
-    })
-
-    if(searchedKeys.length > 1){
-        let temPaintings= [...paintings];
-        for (let i = 0; i <searchedKeys.length ; i++) {
-            temPaintings = temPaintings.filter(paint =>{
-                return (paint[searchedKeys[i]].toLowerCase().includes(object[searchedKeys[i]].toLowerCase()))
-            })
-        }
-        resultPaintings = [...temPaintings];
-
-    }else if( searchedKeys.length ===1 ){
-        paintings.map(paint =>{
-            if(paint[searchedKeys[0]].toLowerCase().includes(object[searchedKeys[0]].toLowerCase())){
-                resultPaintings.push(paint);
-            }
-        })
-    }
-    if(resultPaintings.length > 0){
-        res.send(resultPaintings);
+    if(resultPaints.length > 0){
+        res.send(resultPaints);
     }else{
-        res.status(StatusCodes.NOT_FOUND).send({message: 'No paint with the searched condition'})
+        res.status(404)
+            .send(`Paint is not found`);
     }
 
 })
@@ -69,17 +50,14 @@ router.get("/:id", (req, res) => {
         if (paint) {
             res.send(paint);
         } else {
-            res.status(StatusCodes.NOT_FOUND)
+            res.status(404)
                 .send(`Paint (id ${id}) is not found`);
         }
     }
 })
 
-router.get("/:id/update", (req, res) => {
-    res.send("This is the edit page");
-})
 
-router.put("/:id/update", (req, res) => {
+router.put("/:id/update",isAuth, (req, res) => {
     const id = req.params.id;
     if (id) {
         let index;
@@ -92,13 +70,13 @@ router.put("/:id/update", (req, res) => {
             paintings[index] = updatedPaint;
             res.send(updatedPaint);
         } else {
-            res.status(StatusCodes.NOT_FOUND)
+            res.status(404)
                 .send(`Paint (id ${id}) is not found`);
         }
     }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isAuth,(req, res) => {
     const id = req.params.id;
     if (id) {
         const paint = paintings.find(paint => paint.id == id);
@@ -106,7 +84,7 @@ router.delete("/:id", (req, res) => {
             paintings = paintings.filter(paint => paint.id !== id);
             res.send("The paint is deleted.");
         } else {
-            res.status(StatusCodes.NOT_FOUND)
+            res.status(404)
                 .send(`Paint (id ${id}) is not found`);
 
         }
@@ -122,35 +100,23 @@ router.get("/:id/bid", (req, res)=>{
         const sortedBidsList = paintBidsList.sort((a,b)=>{ return  b.bidPrice - a.bidPrice});
         res.send(sortedBidsList);
     }else{
-        res.status(StatusCodes.NOT_FOUND)
+        res.status(404)
             .send(`Paint (id ${id}) is not found`);
     }
 
 });
 
 
-router.post("/:id/bid", (req, res)=>{
+router.post("/:id/bid",isAuth, (req, res)=>{
     const id = req.params.id;
     const {amount} = req.body;
-    let bearerHeader = req.headers["authorization"];
-    if(bearerHeader){
-        // check if the token is valid
-        const tokenPayload = isTokenValid(bearerHeader);
-        if(tokenPayload){
-            const user = users.find(element => element.id === tokenPayload.id);
-            const paint = paintings.find(paint => paint.id == id);
-
-            if(user){
-                const day = new Date();
-                const time = day.getMonth()+"/"+day.getDate()+" "+day.getHours()+":"+day.getMinutes();
-                const newBid = {id : `${bids.length+1}`, username: user.username, paintId: paint.id, bidTime: time, bidPrice:amount };
-                bids.push(newBid);
-                res.send(newBid)
-            }
-        }
-
-    }
-
+    const tokenPayload = req.user;
+    const paint = paintings.find(paint => paint.id == id);
+    const day = new Date();
+    const time = day.getMonth()+"/"+day.getDate()+" "+day.getHours()+":"+day.getMinutes();
+    const newBid = {id : `${bids.length+1}`, username: tokenPayload.username, paintId: paint.id, bidTime: time, bidPrice:amount };
+    bids.push(newBid);
+    res.status(201).send(newBid)
 
 })
 

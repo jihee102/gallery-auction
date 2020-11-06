@@ -32,7 +32,7 @@
 	const handleSearching = async (event) => {
 		const searchKeyword = event.detail.search;
 		if (searchKeyword !== undefined) {
-			const response = await fetch(`http://localhost:3000/paintings/search?name=${searchKeyword}`, {
+			const response = await fetch(`http://localhost:3000/paintings/paint?name=${searchKeyword}`, {
 				method: "GET",
 				headers: {
 					'Content-Type': 'application/json',
