@@ -26,6 +26,3 @@ https://gallery-auction.herokuapp.com/
 - Search bar by entering a keyword it finds the auction you are looking for
 - Filter You can filter auctions by name , price or size
 
-### Credits
-
-Jihee Hong
