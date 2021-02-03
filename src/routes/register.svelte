@@ -13,17 +13,20 @@
   const userRegister = async (e) => {
     if (repeatpassword === password && emailValidation && passwordValidation) {
       e.preventDefault();
-      const response = await fetch('http://localhost:3000/user/sign-up', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          password: password,
-          username: username,
-          email: email,
-        }),
-      });
+      const response = await fetch(
+        'https://gallery-auction.herokuapp.com/user/sign-up',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            password: password,
+            username: username,
+            email: email,
+          }),
+        }
+      );
 
       if (response.status >= 200 && response.status < 300) {
         goto('/');
