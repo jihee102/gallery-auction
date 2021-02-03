@@ -10,6 +10,11 @@ npm install
 npm run dev
 ```
 
+
+## Live Demo
+https://gallery-auction.herokuapp.com/
+
+
 ### How to use the application
 
 - Main page Here you can see a list of all auctions and you can go
